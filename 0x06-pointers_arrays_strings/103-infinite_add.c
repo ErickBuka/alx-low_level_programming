@@ -1,60 +1,54 @@
-#include "main.h"
 /**
- * infinite_add - Adds two numbers.
- * @n1: The first number to be added.
- * @n2: The second number to be added.
- * @r: The buffer to store the result.
- * @size_r: The size of the buffer.
+ * infinite_add - adds two numbers
+ * @n1: first number
+ * @n2: second number
+ * @r: buffer to store result
+ * @size_r: buffer size
  *
- * Return: A pointer to the result.
+ * Return: pointer to result, or 0 if result can't be stored in r
  */
-
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int len1 = 0, len2 = 0, carry = 0, sum = 0;
+	int i, j, k, n1_len, n2_len, sum, carry = 0;
 
-	/* Get the length of n1 and n2 */
-	while (n1[len1] != '\0')
-		len1++;
-	while (n2[len2] != '\0')
-		len2++;
+	/* Get lengths of n1 and n2 */
+	for (n1_len = 0; n1[n1_len]; n1_len++)
+		;
+	for (n2_len = 0; n2[n2_len]; n2_len++)
+		;
 
-	/* Check if result can be stored in r */
-	if (len1 >= size_r || len2 >= size_r || size_r <= 0)
+	/* Check if result will fit in buffer */
+	if (n1_len >= size_r || n2_len >= size_r || n1_len + 2 > size_r || n2_len + 2 > size_r)
 		return (0);
 
-	/* Add digits from right to left, and store result in r */
-	r[size_r - 1] = '\0';
-	while (len1 > 0 || len2 > 0)
+	/* Initialize indices */
+	i = n1_len - 1;
+	j = n2_len - 1;
+	k = 0;
+
+	/* Add digits and store result in buffer */
+	while (i >= 0 || j >= 0 || carry)
 	{
-		len1--;
-		len2--;
+		sum = carry;
+		if (i >= 0)
+			sum += n1[i--] - '0';
+		if (j >= 0)
+			sum += n2[j--] - '0';
 
-		if (len1 >= 0)
-			sum += n1[len1] - '0';
-		if (len2 >= 0)
-			sum += n2[len2] - '0';
-
-		sum += carry;
-		if (sum >= 10)
-		{
-			carry = 1;
-			sum -= 10;
-		}
-		else
-			carry = 0;
-
-		r[size_r - 2] = sum + '0';
-		size_r--;
+		r[k++] = (sum % 10) + '0';
+		carry = sum / 10;
 	}
 
-	/* Check if there is a remaining carry */
-	if (carry == 1)
+	/* Reverse buffer to get result in correct order */
+	for (i = 0, j = k - 1; i < j; i++, j--)
 	{
-		if (size_r <= 0)
-			return (0);
-		r[size_r - 2] = '1';
+		r[i] ^= r[j];
+		r[j] ^= r[i];
+		r[i] ^= r[j];
 	}
 
-	return (r + (size_r - 1));
+	/* Add null terminator */
+	r[k] = '\0';
+
+	return (r);
 }
