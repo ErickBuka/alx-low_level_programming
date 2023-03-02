@@ -1,1 +1,5 @@
-1. Write a script that runs a C file through the preprocessor and save the result into another file.
+These are some of the exercises on C programming language at ALX Software Engineering Program.
+1. Hello World.
+2. Variables
+3. Funtions and nested loops
+4. Pointers and arrays and strings.
