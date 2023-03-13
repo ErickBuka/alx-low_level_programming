@@ -4,7 +4,7 @@
  gcc -c -Wall -Werror -Wextra *.c
 
 # Create the static library from the .o files
-ar rca liball.a *.o
+ar rc liball.a *.o
 
 # Clean up the .o files
 rm *.o
