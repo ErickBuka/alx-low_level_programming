@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <udis86.h>
 
 /**
  * main - prints its own opcodes
@@ -7,34 +9,33 @@
  *
  * Return: Always 0 (Success)
  */
+
 int main(int argc, char *argv[])
 {
-	int bytes, i;
-	char *arr;
+	ud_t ud_obj;
+	int val = 0, i = 0;
 
-	if (argc != 2)
+	if (argc == 2)
 	{
-		printf("Error\n");
-		exit(1);
-	}
+		val = atoi(argv[1]);
 
-	bytes = atoi(argv[1]);
-
-	if (bytes < 0)
-	{
-		printf("Error\n");
-		exit(2);
-	}
-	arr = (char *)main;
-
-	for (i = 0; i < bytes; i++)
-	{
-		if (i == bytes - 1)
+		if (val < 0)
 		{
-			printf("%02hhx\n", arr[i]);
-			break;
+			printf("Error\n");
+			exit(2);
 		}
-		printf("%02hhx ", arr[i]);
+
+		ud_unit(&ud_obj);
+		ud_set_input_buffer(&ud_obj, argv[1], val);
+		ud_set_mode(&ud_obj, 64);
+		ud_set_syntax(&ud_obj, UD_SYN_INTEL);
+
+		while (ud_disassemble(&ud_obj))
+		{
+			printf("\t%s\n", ud_insn_hex(&ud_obj));
+		}
 	}
+
 	return (0);
 }
+
