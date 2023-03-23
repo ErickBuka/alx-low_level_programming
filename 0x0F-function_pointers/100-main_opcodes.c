@@ -1,36 +1,48 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <udis86.h>
+	#include <stdlib.h>
 
-/**
- * main - prints its own opcodes
- * @argc: number of arguments
- * @argv: array of arguments
- *
- * Return: Always 0 (Success)
- */
-int main(int argc, char **argv)
-{
-	if (argc != 2)
+
+	/**
+	 * main - prints its own opcodes
+	 * @argc: number of arguments
+	 * @argv: array of arguments
+	 *
+	 * Return: Always 0 (Success)
+	 */
+	int main(int argc, char *argv[])
 	{
-		printf("Error\n");
-		return 1;
-	}
+		int bytes, i;
+		char *arr;
 
-	int num_bytes = atoi(argv[1]);
-	if (num_bytes < 0)
-	{
-		printf("Error\n");
-		return 2;
-	}
 
-	/*print the opcodes */
-	unsigned char *ptr = (unsigned char *)main;
-	for (int i = 0; i < num_bytes; i++)
-	{
-		printf("%02x", *(ptr + i));
-	}
-	printf("\n");
+		if (argc != 2)
+		{
+			printf("Error\n");
+			exit(1);
+		}
 
-	return 0;
-}
+
+		bytes = atoi(argv[1]);
+
+
+		if (bytes < 0)
+		{
+			printf("Error\n");
+			exit(2);
+		}
+
+
+		arr = (char *)main;
+
+
+		for (i = 0; i < bytes; i++)
+		{
+			if (i == bytes - 1)
+			{
+				printf("%02hhx\n", arr[i]);
+				break;
+			}
+			printf("%02hhx ", arr[i]);
+		}
+		return (0);
+	}
