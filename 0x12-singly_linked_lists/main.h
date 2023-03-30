@@ -1,11 +1,11 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-char *string_nconcat(char *s1, char *s2, unsigned int n);
-void *malloc_checked(unsigned int b);
-void *_calloc(unsigned int nmemb, unsigned int size);
-int *array_range(int min, int max);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+size_t print_list(const list_t *h);
+size_t list_len(const list_t *h);
+list_t *add_node(list_t **head, const char *str);
+list_t *add_node_end(list_t **head, const char *str);
+void free_list(list_t *head);
 
 
 #endif
