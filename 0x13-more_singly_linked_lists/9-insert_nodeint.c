@@ -28,7 +28,7 @@ listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 		new_node->next = *head;
 		*head = new_node;
 		return (new_node);
- 	}
+	}
 
 	/* Traverse the linked list to find the node before the index */
 	temp = *head;
@@ -41,7 +41,7 @@ listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 			return (NULL);
 		}
 
-  		temp = temp->next;
+		temp = temp->next;
 		i++;
 	}
 
