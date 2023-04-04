@@ -14,7 +14,7 @@ listint_t *get_nodeint_at_index(listint_t *head, unsigned int index)
 	unsigned int i;
 	listint_t *current = head;
 
-	/* Traverse the linked list until the nth node or end of the list is reached */
+/* Traverse the linked list until the nth node or end of the list is reached */
 	for (i = 0; i < index && current != NULL; i++)
 		current = current->next;
 
