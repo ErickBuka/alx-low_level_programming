@@ -10,7 +10,7 @@
 int get_bit(unsigned long int n, unsigned int index)
 {
 	unsigned long int mask;
-	/* Check if index is greater than or equal to the number of bits in a long int */
+	/* Check if index is greater than or equal to the n of bits in a long int */
 	if (index > sizeof(unsigned long int) * 8 - 1)
 		return (-1);
 
@@ -22,6 +22,5 @@ int get_bit(unsigned long int n, unsigned int index)
 	/* returns 1 if (n & mask is 1) */
 		return (1);
 	else
-	/* returns 0 if (n & mask is 0) */
 		return (0);
 }
