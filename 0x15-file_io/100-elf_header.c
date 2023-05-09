@@ -13,19 +13,20 @@ void print_error(char *msg)
 
 int main(int argc, char *argv[])
 {
-    if (argc != 2)
+	int fd = open(argv[1], O_RDONLY);
+	Elf64_Ehdr header;
+	ssize_t n = read(fd, &header, sizeof(header));
+	int i;
+	if (argc != 2)
     {
         print_error("Usage: elf_header elf_filename");
     }
 
-    int fd = open(argv[1], O_RDONLY);
     if (fd == -1)
     {
         print_error("Failed to open file");
     }
 
-    Elf64_Ehdr header;
-    ssize_t n = read(fd, &header, sizeof(header));
     if (n == -1)
     {
         print_error("Failed to read ELF header");
@@ -40,7 +41,7 @@ int main(int argc, char *argv[])
 
     printf("ELF Header:\n");
     printf("  Magic:   ");
-    for (int i = 0; i < EI_NIDENT; i++)
+    for (i = 0; i < EI_NIDENT; i++)
     {
         printf("%02x ", header.e_ident[i]);
     }
