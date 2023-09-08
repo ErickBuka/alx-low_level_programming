@@ -11,29 +11,27 @@
  *
  * Return: A pointer to the concatenated string, or NULL on failure.
  */
-char *string_nconcat(char *s1, char *s2, unsigned int n)
-{
-	unsigned int len1 = (s1 == NULL) ? 0 : strlen(s1);
-	unsigned int len2 = (s2 == NULL) ? 0 : strlen(s2);
-	char *concatenated;
-	unsigned int i, j;
+char *string_nconcat(char *s1, char *s2, unsigned int n) {
+    unsigned int len1 = (s1 == NULL) ? 0 : strlen(s1);
+    unsigned int len2 = (s2 == NULL) ? 0 : strlen(s2);
 
-	/* If n is greater or equal to the length of s2, use the entire s2. */
-	if (n >= len2)
-		n = len2;
+    if (n >= len2)
+        n = len2;
 
-	concatenated = malloc(len1 + n + 1); /* +1 for the null terminator */
+    char *concatenated = malloc(len1 + n + 1); /* +1 for the null terminator */
 
-	if (concatenated == NULL)
-		return (NULL);
+    if (concatenated == NULL)
+        return (NULL);
 
-	for (i = 0; i < len1; i++)
-		concatenated[i] = s1[i];
+    unsigned int i, j;
+    
+    for (i = 0; i < len1; i++)
+        concatenated[i] = s1[i];
 
-	for (j = 0; j < n; j++, i++)
-		concatenated[i] = s2[j];
+    for (j = 0; j < n; j++, i++)
+        concatenated[i] = s2[j];
 
-	concatenated[i] = '\0'; /* Null-terminate the concatenated string */
+    concatenated[i] = '\0'; /* Null-terminate the concatenated string */
 
-	return (concatenated);
+    return (concatenated);
 }
